@@ -12,8 +12,4 @@
              ui:wsdlLocation="CuposDeMateriaServiceWrapper.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService#wsdl.interface(CuposDeMateria_ptt)"/>
   </reference>
-  <reference name="ConsumirMateriasCursando"
-             ui:wsdlLocation="MateriasCursandoDeAlumnoServiceWrapper.wsdl">
-    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumnoService#wsdl.interface(MateriasCursandoDeAlumno_ptt)"/>
-  </reference>
 </componentType>

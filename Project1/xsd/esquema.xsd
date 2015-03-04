@@ -3,42 +3,53 @@
             xmlns="http://www.proyectoInscripcion.org"
             targetNamespace="http://www.proyectoInscripcion.org"
             elementFormDefault="qualified">
-  <xsd:element name="alumno">
-    <xsd:complexType>
-        <xsd:sequence>
-            <xsd:element name="nombre" type="xsd:string"/>
-            <xsd:element name="apellido" type="xsd:string"/>
-            <xsd:element name="dni" type="xsd:string"/>
-            <xsd:element name="historialMaterias">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="materia" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-             <xsd:element name="materiasActuales">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="materia" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-        </xsd:sequence>
-    </xsd:complexType>
-</xsd:element>
-<xsd:element name="materias">
-    <xsd:complexType>
-        <xsd:sequence>
-            <xsd:element name="materia" maxOccurs="unbounded" minOccurs="0" type="xsd:string"/>
-        </xsd:sequence>
-    </xsd:complexType>
-</xsd:element>
-<xsd:element name="darAlta">
-    <xsd:complexType>
-        <xsd:sequence>
-            <xsd:element name="alumno" type="xsd:string"/>
-            <xsd:element name="materia" type="xsd:string"/>
-        </xsd:sequence>
-    </xsd:complexType>
-</xsd:element>
+    <xsd:element name="alumno">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="nombre" type="xsd:string"/>
+                <xsd:element name="apellido" type="xsd:string"/>
+                <xsd:element name="dni" type="xsd:string"/>
+                <xsd:element name="historialMaterias">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="materia" minOccurs="0"
+                                         maxOccurs="unbounded"
+                                         type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="materiasActuales">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="materia" minOccurs="0"
+                                         maxOccurs="unbounded"
+                                         type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="darAlta">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="alumno" type="xsd:string"/>
+                <xsd:element name="materia" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="materia">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="materia"  maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="nombre" type="xsd:string"/>
+                            <xsd:element name="estado" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

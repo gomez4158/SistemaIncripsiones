@@ -36,9 +36,6 @@
     <partnerLink name="dardealtaalumnobpel_client" partnerLinkType="client:DarDeAltaAlumnoBPEL" myRole="DarDeAltaAlumnoBPELProvider"/>
     <partnerLink name="ConsumirCupos" partnerLinkType="ns1:ConsumirCupos"
                  partnerRole="CuposDeMateria_ptt"/>
-    <partnerLink name="ConsumirMateriasCursando"
-                 partnerLinkType="ns2:ConsumirMateriasCursando"
-                 partnerRole="MateriasCursandoDeAlumno_ptt"/>
   </partnerLinks>
 
   <!-- 
