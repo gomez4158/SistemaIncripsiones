@@ -60,7 +60,13 @@
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
+   <url n="DarDeAltaAlumnoBPEL_bpelFileURL" path="DarDeAltaAlumnoBPEL.bpel"/>
+   <value n="DarDeAltaAlumnoBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"/>
+   <value n="DarDeAltaAlumnoBPEL_ProcessName" v="DarDeAltaAlumnoBPEL"/>
+   <value n="DarDeAltaAlumnoBPEL_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="DarDeAltaAlumnoBPEL_wsdl" v="DarDeAltaAlumnoBPEL.wsdl"/>
    <value n="defaultPackage" v="project1"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -354,4 +360,6 @@
          </list>
       </hash>
    </hash>
+   <value n="ProcessName" v="DarDeAltaAlumnoBPEL"/>
+   <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>

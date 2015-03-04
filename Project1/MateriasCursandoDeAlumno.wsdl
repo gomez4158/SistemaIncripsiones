@@ -11,7 +11,7 @@
         </schema>
     </wsdl:types>
     <wsdl:message name="MateriasCursandoDeAlumnoSelect_inputParameters">
-        <wsdl:part name="MateriasCursandoDeAlumnoSelect_inputParameters" element="top:MateriasCursandoDeAlumnoSelect_paramInputParameters"/>
+        <wsdl:part name="MateriasCursandoDeAlumnoSelect_inputParameters" element="top:MateriasCursandoDeAlumnoSelect_paramAlumnoInputParameters"/>
     </wsdl:message>
     <wsdl:message name="InscriptosCollection_msg">
         <wsdl:part name="InscriptosCollection" element="top:InscriptosCollection"/>

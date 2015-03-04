@@ -6,26 +6,22 @@
          <class>MateriasCursandoDeAlumno.Inscriptos</class>
          <alias>INSCRIPTOS</alias>
          <primary-key>
-            <field table="INSCRIPTOS" name="MATERIA" xsi:type="column"/>
+            <field table="INSCRIPTOS" name="ESTADO" xsi:type="column"/>
             <field table="INSCRIPTOS" name="ALUMNO" xsi:type="column"/>
+            <field table="INSCRIPTOS" name="MATERIA" xsi:type="column"/>
          </primary-key>
          <events/>
          <querying>
             <queries>
                <query name="MateriasCursandoDeAlumnoSelect" xsi:type="read-all-query">
-                  <criteria operator="equal" xsi:type="relation-expression">
-                     <left name="alumno" xsi:type="query-key-expression">
-                        <base xsi:type="base-expression"/>
-                     </left>
-                     <right xsi:type="parameter-expression">
-                        <parameter name="param" xsi:type="column"/>
-                     </right>
-                  </criteria>
                   <arguments>
-                     <argument name="param">
+                     <argument name="paramAlumno">
                         <type>java.lang.Object</type>
                      </argument>
                   </arguments>
+                  <call xsi:type="sql-call">
+                     <sql>SELECT MATERIA, ALUMNO, ESTADO FROM INSCRIPTOS WHERE (ALUMNO = #paramAlumno and ESTADO='cursando')</sql>
+                  </call>
                   <reference-class>MateriasCursandoDeAlumno.Inscriptos</reference-class>
                   <container xsi:type="list-container-policy">
                      <collection-type>java.util.Vector</collection-type>
@@ -42,6 +38,11 @@
             <attribute-mapping xsi:type="direct-mapping">
                <attribute-name>alumno</attribute-name>
                <field table="INSCRIPTOS" name="ALUMNO" xsi:type="column"/>
+               <attribute-classification>java.lang.String</attribute-classification>
+            </attribute-mapping>
+            <attribute-mapping xsi:type="direct-mapping">
+               <attribute-name>estado</attribute-name>
+               <field table="INSCRIPTOS" name="ESTADO" xsi:type="column"/>
                <attribute-classification>java.lang.String</attribute-classification>
             </attribute-mapping>
          </attribute-mappings>

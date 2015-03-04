@@ -22,12 +22,19 @@
                </xs:restriction>
             </xs:simpleType>
          </xs:element>
+         <xs:element name="estado" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
       </xs:sequence>
    </xs:complexType>
-   <xs:element name="MateriasCursandoDeAlumnoSelect_paramInputParameters" type="MateriasCursandoDeAlumnoSelect_param"/>
-   <xs:complexType name="MateriasCursandoDeAlumnoSelect_param">
+   <xs:element name="MateriasCursandoDeAlumnoSelect_paramAlumnoInputParameters" type="MateriasCursandoDeAlumnoSelect_paramAlumno"/>
+   <xs:complexType name="MateriasCursandoDeAlumnoSelect_paramAlumno">
       <xs:sequence>
-         <xs:element name="param" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="paramAlumno" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>
