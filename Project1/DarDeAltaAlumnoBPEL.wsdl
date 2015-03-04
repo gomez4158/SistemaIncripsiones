@@ -3,7 +3,8 @@
              targetNamespace="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"
              xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
              xmlns:client="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"
-             xmlns:ns1="http://xmlns.oracle.com/singleString"
+             xmlns:ns1="http://www.proyectoInscripcion.org"
+             xmlns:ns2="http://xmlns.oracle.com/singleString"
              xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -14,6 +15,9 @@
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
 	<wsdl:types>
 		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.proyectoInscripcion.org" schemaLocation="xsd/esquema.xsd" />
+		</schema>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
 			<import namespace="http://xmlns.oracle.com/singleString" schemaLocation="xsd/singleString.xsd" />
 		</schema>
 	</wsdl:types>
@@ -23,10 +27,10 @@
 	part of the port type defintions
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
 	<wsdl:message name="DarDeAltaAlumnoBPELRequestMessage">
-		<wsdl:part name="payload" element="ns1:singleString" />
+		<wsdl:part name="payload" element="ns1:darAlta" />
 	</wsdl:message>
 	<wsdl:message name="DarDeAltaAlumnoBPELResponseMessage">
-		<wsdl:part name="payload" element="ns1:singleString" />
+		<wsdl:part name="payload" element="ns2:singleString" />
 	</wsdl:message>
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

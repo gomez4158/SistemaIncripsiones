@@ -16,8 +16,6 @@
           location="CupoDeMateria.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
           location="CuposDeMateriaService.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"
-          location="DarDeAltaAlumnoBPEL.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumnoService"
           location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1/MateriasCursandoDeAlumnoService.wsdl"
           importType="wsdl"/>
@@ -26,6 +24,8 @@
           importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumno"
           location="MateriasCursandoDeAlumno.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"
+          location="DarDeAltaAlumnoBPEL.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
           location="CuposDeMateriaServiceWrapper.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumnoService"
@@ -47,7 +47,7 @@
                 type="xs:string" many="false">NEVER</property>
     </binding.ws>
   </service>
-  <service name="dardealtaalumnobpel_client_ep_2"
+  <service name="dardealtaalumnobpel_client_ep"
            ui:wsdlLocation="DarDeAltaAlumnoBPEL.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL#wsdl.interface(DarDeAltaAlumnoBPEL)"/>
     <binding.ws port="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL#wsdl.endpoint(dardealtaalumnobpel_client_ep/DarDeAltaAlumnoBPEL_pt)"/>
@@ -122,7 +122,7 @@
     <target.uri>MateriasCursandoDeAlumno</target.uri>
   </wire>
   <wire>
-    <source.uri>dardealtaalumnobpel_client_ep_2</source.uri>
+    <source.uri>dardealtaalumnobpel_client_ep</source.uri>
     <target.uri>DarDeAltaAlumnoBPEL/dardealtaalumnobpel_client</target.uri>
   </wire>
   <wire>
