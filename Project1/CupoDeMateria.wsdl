@@ -1,0 +1,25 @@
+<?binding.jca CupoDeMateria_db.jca?>
+<wsdl:definitions name="CupoDeMateria" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/CupoDeMateria" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/CupoDeMateria" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/CupoDeMateria">
+    <plt:partnerLinkType name="CupoDeMateria_plt">
+        <plt:role name="CupoDeMateria_role">
+            <plt:portType name="tns:CupoDeMateria_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/CupoDeMateria" schemaLocation="xsd/CupoDeMateria_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="CupoDeMateriaSelect_inputParameters">
+        <wsdl:part name="CupoDeMateriaSelect_inputParameters" element="top:CupoDeMateriaSelect_paramInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="MateriasCollection_msg">
+        <wsdl:part name="MateriasCollection" element="top:MateriasCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="CupoDeMateria_ptt">
+        <wsdl:operation name="CupoDeMateriaSelect">
+            <wsdl:input message="tns:CupoDeMateriaSelect_inputParameters"/>
+            <wsdl:output message="tns:MateriasCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

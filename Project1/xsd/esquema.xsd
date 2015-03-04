@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.proyectoInscripcion.org"
+            targetNamespace="http://www.proyectoInscripcion.org"
+            elementFormDefault="qualified">
+  <xsd:element name="alumno">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="nombre" type="xsd:string"/>
+            <xsd:element name="apellido" type="xsd:string"/>
+            <xsd:element name="dni" type="xsd:string"/>
+            <xsd:element name="historialMaterias">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="materia" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+             <xsd:element name="materiasActuales">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="materia" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+<xsd:element name="materias">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="materia" maxOccurs="unbounded" minOccurs="0" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+</xsd:schema>

@@ -1,0 +1,31 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="CuposDeMateriaService"
+     targetNamespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+     xmlns:inp2="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:inp1="http://xmlns.oracle.com/singleString"
+     xmlns:tns="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/singleString" schemaLocation="xsd/singleString.xsd"/>
+        </xsd:schema>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+             elementFormDefault="qualified">
+            <element name="integer" type="integer"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="part1" element="inp1:singleString"/>
+    </wsdl:message>
+    <wsdl:message name="replyMessage">
+        <wsdl:part name="part1" element="inp2:integer"/>
+    </wsdl:message>
+    <wsdl:portType name="CuposDeMateria_ptt">
+        <wsdl:operation name="CuposDeMateria">
+            <wsdl:input message="inp2:requestMessage"/>
+            <wsdl:output message="inp2:replyMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
