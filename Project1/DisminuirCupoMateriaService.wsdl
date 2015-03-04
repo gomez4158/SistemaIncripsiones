@@ -1,0 +1,22 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="DisminuirCupoMateriaService"
+     targetNamespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupoMateriaService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:inp1="http://xmlns.oracle.com/pcbpel/adapter/db/top/aumentarCupo"
+     xmlns:tns="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupoMateriaService"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/aumentarCupo" schemaLocation="xsd/aumentarCupo_table.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="part1" element="inp1:MateriasCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="DisminuirCupoMateria_ptt">
+        <wsdl:operation name="DisminuirCupoMateria">
+            <wsdl:input message="tns:requestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MateriasCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/aumentarCupo">
+   <Materias>
+      <materia>string49</materia>
+      <cupo>51</cupo>
+   </Materias>
+   <Materias>
+      <materia>string52</materia>
+      <cupo>54</cupo>
+   </Materias>
+   <Materias>
+      <materia>string55</materia>
+      <cupo>57</cupo>
+   </Materias>
+</MateriasCollection>

@@ -1,0 +1,21 @@
+<?binding.jca aumentarCupo_db.jca?>
+<wsdl:definitions name="aumentarCupo" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/aumentarCupo" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/aumentarCupo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/aumentarCupo">
+    <plt:partnerLinkType name="aumentarCupo_plt">
+        <plt:role name="aumentarCupo_role">
+            <plt:portType name="tns:aumentarCupo_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/aumentarCupo" schemaLocation="xsd/aumentarCupo_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="MateriasCollection_msg">
+        <wsdl:part name="MateriasCollection" element="top:MateriasCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="aumentarCupo_ptt">
+        <wsdl:operation name="update">
+            <wsdl:input message="tns:MateriasCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

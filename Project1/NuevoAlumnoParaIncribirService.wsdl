@@ -1,0 +1,22 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="NuevoAlumnoParaIncribirService"
+     targetNamespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:inp1="http://www.proyectoInscripcion.org"
+     xmlns:tns="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.proyectoInscripcion.org" schemaLocation="xsd/esquema.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="part1" element="inp1:darAlta"/>
+    </wsdl:message>
+    <wsdl:portType name="executNuevoAlumnoParaIncribir">
+        <wsdl:operation name="NuevoAlumnoParaIncribir">
+            <wsdl:input message="tns:requestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

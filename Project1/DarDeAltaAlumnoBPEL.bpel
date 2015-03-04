@@ -17,7 +17,8 @@
                xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
          xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
          xmlns:ns1="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
-         xmlns:ns2="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumnoService">
+         xmlns:ns2="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumnoService"
+         xmlns:ns3="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/AumentarCupoService">
 
     <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL" location="DarDeAltaAlumnoBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 

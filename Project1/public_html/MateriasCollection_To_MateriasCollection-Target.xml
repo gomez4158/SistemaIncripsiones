@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<top:MateriasCollection xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/DisminuirCupos">
+   <top:Materias>
+      <top:materia>string49</top:materia>
+      <top:cupo>50</top:cupo>
+   </top:Materias>
+</top:MateriasCollection>

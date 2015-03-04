@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/DisminuirCupo" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/DisminuirCupo" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="MateriasCollection" type="MateriasCollection"/>
+   <xs:complexType name="MateriasCollection">
+      <xs:sequence>
+         <xs:element name="Materias" type="Materias" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Materias">
+      <xs:sequence>
+         <xs:element name="materia">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="cupo" type="xs:decimal" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
