@@ -14,5 +14,6 @@
    </hash>
    <list n="listOfChildren">
       <hash><url n="URL" path="Project1/sistemaInscripsiones.jpr"/></hash>
+      <hash><url n="URL" path="ProjectMentira/ProjectMentira.jpr"/></hash>
    </list>
 </jws:workspace>
