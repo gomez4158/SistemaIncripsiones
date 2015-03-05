@@ -1,0 +1,4 @@
+05-mar-2015 9:28:11 oracle.mds
+NOTIFICATION: La instancia de PManager se ha creado sin soporte de varios contenidos, ya que el indicador de JVM "oracle.multitenant.enabled" no se ha definido para activar el soporte de varios contenidos.
+05-mar-2015 9:28:11 oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.

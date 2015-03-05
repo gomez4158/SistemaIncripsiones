@@ -8,7 +8,7 @@
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/ProjectMentira/Service1#wsdl.interface(execute_ptt)"/>
   </service>
   <reference name="Service2"
-             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1/MateriasCursandoConEstadoService.wsdl">
+             ui:wsdlLocation="http://BUE-865950A-1.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/MateriasCursandoConEstadoService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService#wsdl.interface(MateriasCursandoConEstado_ptt)"/>
   </reference>
 </componentType>

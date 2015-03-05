@@ -1,0 +1,14 @@
+<adapter-config name="darDebaja" adapter="Database Adapter" wsdlLocation="darDebaja.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/mypool" UIConnectionName="system" adapterRef=""/>
+  <endpoint-interaction portType="darDebaja_ptt" operation="update">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="darDebaja.Inscriptos"/>
+      <property name="DmlType" value="update"/>
+      <property name="MappingsMetaDataURL" value="darDebaja-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

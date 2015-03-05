@@ -13,7 +13,7 @@
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/ProjectMentira/Service1"
           location="Service1.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService"
-          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1/MateriasCursandoConEstadoService.wsdl"
+          location="http://BUE-865950A-1.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/MateriasCursandoConEstadoService.wsdl"
           importType="wsdl"/>
   <service name="Service1" ui:wsdlLocation="Service1.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/ProjectMentira/Service1#wsdl.interface(execute_ptt)"/>
@@ -26,10 +26,10 @@
     <implementation.mediator src="Mediator1.mplan"/>
   </component>
   <reference name="Service2"
-             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1/MateriasCursandoConEstadoService.wsdl">
+             ui:wsdlLocation="http://BUE-865950A-1.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/MateriasCursandoConEstadoService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService#wsdl.interface(MateriasCursandoConEstado_ptt)"/>
     <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService#wsdl.endpoint(MateriasCursandoConEstadoService/MateriasCursandoConEstado_pt)"
-                location="http://bue-858029a-5.usersad.everis.int:7001/soa-infra/services/default/Project1/MateriasCursandoConEstadoService?WSDL"
+                location="http://BUE-865950A-1.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/MateriasCursandoConEstadoService?WSDL"
                 soapVersion="1.1">
       <property name="weblogic.wsee.wsat.transaction.flowOption"
                 type="xs:string" many="false">WSDLDriven</property>

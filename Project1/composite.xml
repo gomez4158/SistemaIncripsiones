@@ -37,6 +37,8 @@
           location="DisminuirCupo.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService"
           location="MateriasCursandoConEstadoService.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja"
+          location="darDebaja.wsdl" importType="wsdl"/>
   <service name="CuposDeMateriaService"
            ui:wsdlLocation="CuposDeMateriaService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService#wsdl.interface(CuposDeMateria_ptt)"/>
@@ -78,6 +80,13 @@
            ui:wsdlLocation="MateriasCursandoConEstadoService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService#wsdl.interface(MateriasCursandoConEstado_ptt)"/>
     <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService#wsdl.endpoint(MateriasCursandoConEstadoService/MateriasCursandoConEstado_pt)">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">NEVER</property>
+    </binding.ws>
+  </service>
+  <service name="ServiceDarDebaja" ui:wsdlLocation="darDebaja.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja#wsdl.interface(darDebaja_ptt)"/>
+    <binding.ws port="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja#wsdl.endpoint(Service1/darDebaja_pt)">
       <property name="weblogic.wsee.wsat.transaction.flowOption"
                 type="xs:string" many="false">NEVER</property>
     </binding.ws>
@@ -168,6 +177,17 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="darDebaja" ui:wsdlLocation="darDebaja.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja#wsdl.interface(darDebaja_ptt)"/>
+    <binding.jca config="darDebaja_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>CuposDeMateriaService</source.uri>
     <target.uri>CuposMediator/CuposMediator</target.uri>
@@ -215,5 +235,9 @@
   <wire>
     <source.uri>MateriasCursandoConEstadoMediator/MateriasCursandoDeAlumno</source.uri>
     <target.uri>MateriasCursandoDeAlumno</target.uri>
+  </wire>
+  <wire>
+    <source.uri>ServiceDarDebaja</source.uri>
+    <target.uri>darDebaja</target.uri>
   </wire>
 </composite>
