@@ -1,6 +1,6 @@
 <adapter-config name="CupoDeMateria" adapter="Database Adapter" wsdlLocation="CupoDeMateria.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/mypool" UIConnectionName="system" adapterRef=""/>
+  <connection-factory location="eis/pileta" UIConnectionName="system" adapterRef=""/>
   <endpoint-interaction portType="CupoDeMateria_ptt" operation="CupoDeMateriaSelect">
     <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
       <property name="DescriptorName" value="CupoDeMateria.Materias"/>

@@ -10,5 +10,163 @@
            xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
            xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
-
+  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL"
+          location="DarDeAltaAlumnoBPEL.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/CuposDeMateriaService.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+          location="CuposDeMateriaServiceWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/MateriasCursandoConEstadoService.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupoMateriaService"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/DisminuirCupoMateriaService.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService"
+          location="MateriasCursandoConEstadoServiceWrapper.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupoMateriaService"
+          location="DisminuirCupoMateriaServiceWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/NuevoAlumnoParaIncribirService.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService"
+          location="NuevoAlumnoParaIncribirServiceWrapper.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/AumentarCupoService"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/AumentarCupoService.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL"
+          location="DarDeBajaAlumnoBPEL.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/AumentarCupoService"
+          location="AumentarCupoServiceWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/darDebaja.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+          location="CuposDeMateriaServiceWrapper1.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService"
+          location="MateriasCursandoConEstadoServiceWrapper1.wsdl"
+          importType="wsdl"/>
+  <service name="dardealtaalumnobpel_client_ep"
+           ui:wsdlLocation="DarDeAltaAlumnoBPEL.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL#wsdl.interface(DarDeAltaAlumnoBPEL)"/>
+    <binding.ws port="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL#wsdl.endpoint(dardealtaalumnobpel_client_ep/DarDeAltaAlumnoBPEL_pt)"/>
+  </service>
+  <service name="dardebajaalumnobpel_client_ep"
+           ui:wsdlLocation="DarDeBajaAlumnoBPEL.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL#wsdl.interface(DarDeBajaAlumnoBPEL)"/>
+    <binding.ws port="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL#wsdl.endpoint(dardebajaalumnobpel_client_ep/DarDeBajaAlumnoBPEL_pt)"/>
+  </service>
+  <component name="DarDeAltaAlumnoBPEL" version="2.0">
+    <implementation.bpel src="DarDeAltaAlumnoBPEL.bpel"/>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+    <property name="configuration.monitorLocation" type="xs:string"
+              many="false">DarDeAltaAlumnoBPEL.monitor</property>
+  </component>
+  <component name="DarDeBajaAlumnoBPEL" version="2.0">
+    <implementation.bpel src="DarDeBajaAlumnoBPEL.bpel"/>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+  </component>
+  <reference name="CuposService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/CuposDeMateriaService.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService#wsdl.interface(CuposDeMateria_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService#wsdl.endpoint(CuposDeMateriaService/CuposDeMateria_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/CuposDeMateriaService?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="MateriasCursandoService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/MateriasCursandoConEstadoService.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService#wsdl.interface(MateriasCursandoConEstado_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService#wsdl.endpoint(MateriasCursandoConEstadoService/MateriasCursandoConEstado_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/MateriasCursandoConEstadoService?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="DisminuirCupoService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/DisminuirCupoMateriaService.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupoMateriaService#wsdl.interface(DisminuirCupoMateria_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupoMateriaService#wsdl.endpoint(DisminuirCupoMateriaService/DisminuirCupoMateria_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/DisminuirCupoMateriaService?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="NuevoAlumnoService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/NuevoAlumnoParaIncribirService.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService#wsdl.interface(execute_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService#wsdl.endpoint(NuevoAlumnoParaIncribirService/execute_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/NuevoAlumnoParaIncribirService?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="AumentarCupoService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/AumentarCupoService.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/AumentarCupoService#wsdl.interface(AumentarCup_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/AumentarCupoService#wsdl.endpoint(AumentarCupoService/AumentarCup_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/AumentarCupoService?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="PonerEnCursoAlumnoService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/darDebaja.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja#wsdl.interface(darDebaja_ptt)"/>
+    <binding.ws port="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja#wsdl.endpoint(Service1/darDebaja_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/ServiceDarDebaja?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <wire>
+    <source.uri>dardealtaalumnobpel_client_ep</source.uri>
+    <target.uri>DarDeAltaAlumnoBPEL/dardealtaalumnobpel_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeAltaAlumnoBPEL/CuposService</source.uri>
+    <target.uri>CuposService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeAltaAlumnoBPEL/MateriasCursandoService</source.uri>
+    <target.uri>MateriasCursandoService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeAltaAlumnoBPEL/DisminuirCupoService</source.uri>
+    <target.uri>DisminuirCupoService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeAltaAlumnoBPEL/NuevoAlumnoService</source.uri>
+    <target.uri>NuevoAlumnoService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>dardebajaalumnobpel_client_ep</source.uri>
+    <target.uri>DarDeBajaAlumnoBPEL/dardebajaalumnobpel_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeBajaAlumnoBPEL/AumentarCupoService</source.uri>
+    <target.uri>AumentarCupoService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeBajaAlumnoBPEL/PonerEnCursoAlumnoService</source.uri>
+    <target.uri>PonerEnCursoAlumnoService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeBajaAlumnoBPEL/CuposService</source.uri>
+    <target.uri>CuposService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>DarDeBajaAlumnoBPEL/MateriasCursandoService</source.uri>
+    <target.uri>MateriasCursandoService</target.uri>
+  </wire>
 </composite>

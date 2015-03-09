@@ -1,0 +1,25 @@
+<?binding.jca MateriasCursando_db.jca?>
+<wsdl:definitions name="MateriasCursando" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursando" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursando" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/MateriasCursando">
+    <plt:partnerLinkType name="MateriasCursando_plt">
+        <plt:role name="MateriasCursando_role">
+            <plt:portType name="tns:MateriasCursando_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/MateriasCursando" schemaLocation="xsd/MateriasCursando_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="MateriasCursandoSelect_inputParameters">
+        <wsdl:part name="MateriasCursandoSelect_inputParameters" element="top:MateriasCursandoSelect_paramInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="InscriptosCollection_msg">
+        <wsdl:part name="InscriptosCollection" element="top:InscriptosCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="MateriasCursando_ptt">
+        <wsdl:operation name="MateriasCursandoSelect">
+            <wsdl:input message="tns:MateriasCursandoSelect_inputParameters"/>
+            <wsdl:output message="tns:InscriptosCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

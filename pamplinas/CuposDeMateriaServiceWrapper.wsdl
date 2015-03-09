@@ -1,0 +1,16 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="CuposDeMateriaService"
+     targetNamespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:inp2="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    >
+    <plnk:partnerLinkType name="CuposService">
+        <plnk:role name="CuposDeMateria_ptt" portType="inp2:CuposDeMateria_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+         location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1!1.0/CuposDeMateriaService.wsdl"/>
+</wsdl:definitions>

@@ -31,10 +31,10 @@
          </xs:element>
       </xs:sequence>
    </xs:complexType>
-   <xs:element name="MateriasCursandoDeAlumnoSelect_paramAlumnoInputParameters" type="MateriasCursandoDeAlumnoSelect_paramAlumno"/>
-   <xs:complexType name="MateriasCursandoDeAlumnoSelect_paramAlumno">
+   <xs:element name="MateriasCursandoDeAlumnoSelect_paramInputParameters" type="MateriasCursandoDeAlumnoSelect_param"/>
+   <xs:complexType name="MateriasCursandoDeAlumnoSelect_param">
       <xs:sequence>
-         <xs:element name="paramAlumno" type="xs:string" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="param" type="xs:string" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 </xs:schema>

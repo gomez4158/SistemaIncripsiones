@@ -1,0 +1,223 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Mar 05 13:38:59 ART 2015
+  Author:  cgomezar
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="MIERDABPEL"
+               targetNamespace="http://xmlns.oracle.com/SistemaDeInscripsiones/pamplinas/MIERDABPEL"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SistemaDeInscripsiones/pamplinas/MIERDABPEL"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService"
+         xmlns:ns2="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService"
+         xmlns:ns3="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+         xmlns:ns5="http://xmlns.oracle.com/singleString"
+         xmlns:ns4="http://www.proyectoInscripcion.org"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/pamplinas/MIERDABPEL" location="MIERDABPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="mierdabpel_client" partnerLinkType="client:MIERDABPEL" myRole="MIERDABPELProvider"/>
+    <partnerLink name="MateriasService" partnerLinkType="ns1:MateriasService"
+                 partnerRole="MateriasCursandoConEstado_ptt"/>
+    <partnerLink name="NuevoService" partnerLinkType="ns2:NuevoService"
+                 partnerRole="executNuevoAlumnoParaIncribir"/>
+    <partnerLink name="CuposService" partnerLinkType="ns3:CuposService"
+                 partnerRole="CuposDeMateria_ptt"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:MIERDABPELRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:MIERDABPELResponseMessage"/>
+    <variable name="Invoke1_CuposDeMateria_InputVariable"
+              messageType="ns3:requestMessage"/>
+    <variable name="Invoke1_CuposDeMateria_OutputVariable"
+              messageType="ns3:replyMessage"/>
+    <variable name="Invoke2_MateriasCursandoConEstado_InputVariable"
+              messageType="ns1:requestMessage"/>
+    <variable name="Invoke2_MateriasCursandoConEstado_OutputVariable"
+              messageType="ns1:replyMessage"/>
+    <variable name="MeterNuevo" type="xsd:string"/>
+    <variable name="Invoke3_NuevoAlumnoParaIncribir_InputVariable"
+              messageType="ns2:requestMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in MIERDABPEL.wsdl) -->
+    <receive name="receiveInput" partnerLink="mierdabpel_client" portType="client:MIERDABPEL" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from>$inputVariable.payload/ns4:materia</from>
+        <to>$Invoke1_CuposDeMateria_InputVariable.part1</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke1" bpelx:invokeAsDetail="no"
+            partnerLink="CuposService" portType="ns3:CuposDeMateria_ptt"
+            operation="CuposDeMateria"
+            inputVariable="Invoke1_CuposDeMateria_InputVariable"
+            outputVariable="Invoke1_CuposDeMateria_OutputVariable"/>
+    <if name="If1">
+      <documentation/>
+      <condition>$Invoke1_CuposDeMateria_OutputVariable.part1 &gt; 0</condition>
+      <sequence name="Sequence1">
+        <assign name="Assign3">
+          <copy>
+            <from>$inputVariable.payload/ns4:materia</from>
+            <to>$Invoke2_MateriasCursandoConEstado_InputVariable.part1</to>
+          </copy>
+        </assign>
+        <invoke name="Invoke2"
+                partnerLink="MateriasService"
+                portType="ns1:MateriasCursandoConEstado_ptt"
+                operation="MateriasCursandoConEstado"
+                inputVariable="Invoke2_MateriasCursandoConEstado_InputVariable"
+                outputVariable="Invoke2_MateriasCursandoConEstado_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <assign name="Assign4">
+          <copy>
+            <from>"no"</from>
+            <to>$MeterNuevo</to>
+          </copy>
+        </assign>
+        <if name="If4">
+          <documentation/>
+          <condition>count($Invoke2_MateriasCursandoConEstado_OutputVariable.part1/ns4:materia) &gt; 0</condition>
+          <forEach parallel="no" counterName="ForEach1Counter" name="ForEach1">
+            <startCounterValue>1</startCounterValue>
+            <finalCounterValue>count($Invoke2_MateriasCursandoConEstado_OutputVariable.part1/ns4:materia/ns4:nombre)</finalCounterValue>
+            <scope name="Scope1">
+              <if name="If2">
+                <documentation/>
+                <condition>$Invoke2_MateriasCursandoConEstado_OutputVariable.part1/ns4:materia[$ForEach1Counter]/ns4:nombre = $inputVariable.payload/ns4:materia and $Invoke2_MateriasCursandoConEstado_OutputVariable.part1/ns4:materia[$ForEach1Counter]/ns4:estado = "cursando"</condition>
+                <assign name="Assign5">
+                  <copy>
+                    <from>"si"</from>
+                    <to>$MeterNuevo</to>
+                  </copy>
+                  <copy>
+                    <from>count($Invoke2_MateriasCursandoConEstado_OutputVariable.part1/ns4:materia/ns4:nombre) + 1</from>
+                    <to>$ForEach1Counter</to>
+                  </copy>
+                </assign>
+                <else>
+                  <empty name="Empty3"/>
+                </else>
+              </if>
+            </scope>
+          </forEach>
+          <else>
+            <assign name="Assign8">
+              <copy>
+                <from>"si"</from>
+                <to>$MeterNuevo</to>
+              </copy>
+            </assign>
+          </else>
+        </if>
+      </sequence>
+      <else>
+        <assign name="Assign2">
+          <copy>
+            <from>"no se puede"</from>
+            <to>$outputVariable.payload/ns4:alumno</to>
+          </copy>
+          <copy>
+            <from>"no se puede"</from>
+            <to>$outputVariable.payload/ns4:materia</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <if name="If3">
+      <documentation/>
+      <condition>$MeterNuevo = "si"</condition>
+      <sequence name="Sequence2">
+        <assign name="Assign10">
+          <copy>
+            <from>$inputVariable.payload/ns4:alumno</from>
+            <to>$Invoke3_NuevoAlumnoParaIncribir_InputVariable.part1/ns4:alumno</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns4:materia</from>
+            <to>$Invoke3_NuevoAlumnoParaIncribir_InputVariable.part1/ns4:materia</to>
+          </copy>
+        </assign>
+        <invoke name="Invoke3" bpelx:invokeAsDetail="no"
+                partnerLink="NuevoService"
+                portType="ns2:executNuevoAlumnoParaIncribir"
+                operation="NuevoAlumnoParaIncribir"
+                inputVariable="Invoke3_NuevoAlumnoParaIncribir_InputVariable"/>
+        <assign name="Assign7">
+          <copy>
+            <from>"correcto"</from>
+            <to>$outputVariable.payload/ns4:alumno</to>
+          </copy>
+          <copy>
+            <from>"correcto"</from>
+            <to>$outputVariable.payload/ns4:materia</to>
+          </copy>
+        </assign>
+      </sequence>
+      <else>
+        <assign name="Assign9">
+          <copy>
+            <from>"no se puede"</from>
+            <to>$outputVariable.payload/ns4:alumno</to>
+          </copy>
+          <copy>
+            <from>"no se puede"</from>
+            <to>$outputVariable.payload/ns4:materia</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="mierdabpel_client" portType="client:MIERDABPEL" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

@@ -14,15 +14,6 @@
           location="CupoDeMateria.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
           location="CuposDeMateriaService.wsdl" importType="wsdl"/>
-  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
-          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1/CuposDeMateriaService.wsdl"
-          importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumno"
-          location="MateriasCursandoDeAlumno.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"
-          location="DarDeAltaAlumnoBPEL.wsdl" importType="wsdl"/>
-  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
-          location="CuposDeMateriaServiceWrapper.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/aumentarCupo"
           location="aumentarCupo.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/AumentarCupoService"
@@ -39,6 +30,8 @@
           location="MateriasCursandoConEstadoService.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja"
           location="darDebaja.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursando"
+          location="MateriasCursando.wsdl" importType="wsdl"/>
   <service name="CuposDeMateriaService"
            ui:wsdlLocation="CuposDeMateriaService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService#wsdl.interface(CuposDeMateria_ptt)"/>
@@ -46,11 +39,6 @@
       <property name="weblogic.wsee.wsat.transaction.flowOption"
                 type="xs:string" many="false">NEVER</property>
     </binding.ws>
-  </service>
-  <service name="dardealtaalumnobpel_client_ep"
-           ui:wsdlLocation="DarDeAltaAlumnoBPEL.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL#wsdl.interface(DarDeAltaAlumnoBPEL)"/>
-    <binding.ws port="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL#wsdl.endpoint(dardealtaalumnobpel_client_ep/DarDeAltaAlumnoBPEL_pt)"/>
   </service>
   <service name="AumentarCupoService"
            ui:wsdlLocation="AumentarCupoService.wsdl">
@@ -62,8 +50,8 @@
   </service>
   <service name="NuevoAlumnoParaIncribirService"
            ui:wsdlLocation="NuevoAlumnoParaIncribirService.wsdl">
-    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService#wsdl.interface(executNuevoAlumnoParaIncribir)"/>
-    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService#wsdl.endpoint(NuevoAlumnoParaIncribirService/executNuevoAlumnoParaIncribir_pt)">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService#wsdl.interface(execute_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService#wsdl.endpoint(NuevoAlumnoParaIncribirService/execute_pt)">
       <property name="weblogic.wsee.wsat.transaction.flowOption"
                 type="xs:string" many="false">NEVER</property>
     </binding.ws>
@@ -94,47 +82,21 @@
   <component name="CuposMediator">
     <implementation.mediator src="CuposMediator.mplan"/>
   </component>
-  <component name="DarDeAltaAlumnoBPEL" version="2.0">
-    <implementation.bpel src="DarDeAltaAlumnoBPEL.bpel"/>
-    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
-  </component>
   <component name="AumentarCupoMediator">
     <implementation.mediator src="AumentarCupoMediator.mplan"/>
-  </component>
-  <component name="NuevoAlumnoParaIncribirMediator">
-    <implementation.mediator src="NuevoAlumnoParaIncribirMediator.mplan"/>
   </component>
   <component name="DisminuirCupoMediator">
     <implementation.mediator src="DisminuirCupoMediator.mplan"/>
   </component>
-  <component name="MateriasCursandoConEstadoMediator">
-    <implementation.mediator src="MateriasCursandoConEstadoMediator.mplan"/>
+  <component name="MateriasCursandoMediator">
+    <implementation.mediator src="MateriasCursandoMediator.mplan"/>
+  </component>
+  <component name="NuevoAlumnoMediator">
+    <implementation.mediator src="NuevoAlumnoMediator.mplan"/>
   </component>
   <reference name="CupoDeMateria" ui:wsdlLocation="CupoDeMateria.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/CupoDeMateria#wsdl.interface(CupoDeMateria_ptt)"/>
     <binding.jca config="CupoDeMateria_db.jca"/>
-    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
-    <property name="jca.retry.interval" type="xs:int" many="false"
-              override="may">1</property>
-    <property name="jca.retry.backoff" type="xs:int" many="false"
-              override="may">2</property>
-    <property name="jca.retry.maxInterval" type="xs:string" many="false"
-              override="may">120</property>
-  </reference>
-  <reference name="ConsumirCupos"
-             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/Project1/CuposDeMateriaService.wsdl">
-    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService#wsdl.interface(CuposDeMateria_ptt)"/>
-    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService#wsdl.endpoint(CuposDeMateriaService/CuposDeMateria_pt)"
-                location="http://bue-858029a-5.usersad.everis.int:7001/soa-infra/services/default/Project1/CuposDeMateriaService?WSDL"
-                soapVersion="1.1">
-      <property name="weblogic.wsee.wsat.transaction.flowOption"
-                type="xs:string" many="false">WSDLDriven</property>
-    </binding.ws>
-  </reference>
-  <reference name="MateriasCursandoDeAlumno"
-             ui:wsdlLocation="MateriasCursandoDeAlumno.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoDeAlumno#wsdl.interface(MateriasCursandoDeAlumno_ptt)"/>
-    <binding.jca config="MateriasCursandoDeAlumno_db.jca"/>
     <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
     <property name="jca.retry.interval" type="xs:int" many="false"
               override="may">1</property>
@@ -188,6 +150,17 @@
     <property name="jca.retry.maxInterval" type="xs:string" many="false"
               override="may">120</property>
   </reference>
+  <reference name="MateriasCursando" ui:wsdlLocation="MateriasCursando.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursando#wsdl.interface(MateriasCursando_ptt)"/>
+    <binding.jca config="MateriasCursando_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>CuposDeMateriaService</source.uri>
     <target.uri>CuposMediator/CuposMediator</target.uri>
@@ -195,14 +168,6 @@
   <wire>
     <source.uri>CuposMediator/CupoDeMateria</source.uri>
     <target.uri>CupoDeMateria</target.uri>
-  </wire>
-  <wire>
-    <source.uri>dardealtaalumnobpel_client_ep</source.uri>
-    <target.uri>DarDeAltaAlumnoBPEL/dardealtaalumnobpel_client</target.uri>
-  </wire>
-  <wire>
-    <source.uri>DarDeAltaAlumnoBPEL/ConsumirCupos</source.uri>
-    <target.uri>ConsumirCupos</target.uri>
   </wire>
   <wire>
     <source.uri>AumentarCupoService</source.uri>
@@ -213,14 +178,6 @@
     <target.uri>aumentarCupo</target.uri>
   </wire>
   <wire>
-    <source.uri>NuevoAlumnoParaIncribirService</source.uri>
-    <target.uri>NuevoAlumnoParaIncribirMediator/NuevoAlumnoParaIncribirMediator</target.uri>
-  </wire>
-  <wire>
-    <source.uri>NuevoAlumnoParaIncribirMediator/NuevoAlumnoParaIncribir</source.uri>
-    <target.uri>NuevoAlumnoParaIncribir</target.uri>
-  </wire>
-  <wire>
     <source.uri>DisminuirCupoMateriaService</source.uri>
     <target.uri>DisminuirCupoMediator/DisminuirCupoMediator</target.uri>
   </wire>
@@ -229,15 +186,23 @@
     <target.uri>DisminuirCupo</target.uri>
   </wire>
   <wire>
-    <source.uri>MateriasCursandoConEstadoService</source.uri>
-    <target.uri>MateriasCursandoConEstadoMediator/MateriasCursandoConEstadoMediator</target.uri>
-  </wire>
-  <wire>
-    <source.uri>MateriasCursandoConEstadoMediator/MateriasCursandoDeAlumno</source.uri>
-    <target.uri>MateriasCursandoDeAlumno</target.uri>
-  </wire>
-  <wire>
     <source.uri>ServiceDarDebaja</source.uri>
     <target.uri>darDebaja</target.uri>
+  </wire>
+  <wire>
+    <source.uri>MateriasCursandoConEstadoService</source.uri>
+    <target.uri>MateriasCursandoMediator/MateriasCursandoMediator</target.uri>
+  </wire>
+  <wire>
+    <source.uri>MateriasCursandoMediator/MateriasCursando</source.uri>
+    <target.uri>MateriasCursando</target.uri>
+  </wire>
+  <wire>
+    <source.uri>NuevoAlumnoParaIncribirService</source.uri>
+    <target.uri>NuevoAlumnoMediator/NuevoAlumnoMediator</target.uri>
+  </wire>
+  <wire>
+    <source.uri>NuevoAlumnoMediator/NuevoAlumnoParaIncribir</source.uri>
+    <target.uri>NuevoAlumnoParaIncribir</target.uri>
   </wire>
 </composite>

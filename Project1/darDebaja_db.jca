@@ -1,6 +1,6 @@
 <adapter-config name="darDebaja" adapter="Database Adapter" wsdlLocation="darDebaja.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/mypool" UIConnectionName="system" adapterRef=""/>
+  <connection-factory location="eis/pileta" UIConnectionName="system" adapterRef=""/>
   <endpoint-interaction portType="darDebaja_ptt" operation="update">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="darDebaja.Inscriptos"/>

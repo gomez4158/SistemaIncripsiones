@@ -1,5 +1,20 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
+   <url n="ask_bpelFileURL" path="ask.bpel"/>
+   <value n="ask_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/ask"/>
+   <value n="ask_ProcessName" v="ask"/>
+   <value n="ask_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="ask_wsdl" v="ask.wsdl"/>
+   <url n="BPELProcess1_bpelFileURL" path="BPELProcess1.bpel"/>
+   <value n="BPELProcess1_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/BPELProcess1"/>
+   <value n="BPELProcess1_ProcessName" v="BPELProcess1"/>
+   <value n="BPELProcess1_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="BPELProcess1_wsdl" v="BPELProcess1.wsdl"/>
+   <url n="BPELProcess2_bpelFileURL" path="BPELProcess2.bpel"/>
+   <value n="BPELProcess2_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/BPELProcess2"/>
+   <value n="BPELProcess2_ProcessName" v="BPELProcess2"/>
+   <value n="BPELProcess2_Template" v="BPEL_ONE_WAY_PROCESS"/>
+   <value n="BPELProcess2_wsdl" v="BPELProcess2.wsdl"/>
    <hash n="component-versions">
       <value n="oracle.adfdt.controller.adfc.source.migration.AdfControllerSchemaMigrator" v="11.1.1.1.0"/>
       <value n="oracle.adfdt.controller.common.migrator.ProjectMigrator" v="11.1.1.1.0"/>
@@ -60,7 +75,22 @@
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
+   <url n="DarDeAltaAlumnoBPEL_bpelFileURL" path="DarDeAltaAlumnoBPEL.bpel"/>
+   <value n="DarDeAltaAlumnoBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL"/>
+   <value n="DarDeAltaAlumnoBPEL_ProcessName" v="DarDeAltaAlumnoBPEL"/>
+   <value n="DarDeAltaAlumnoBPEL_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="DarDeAltaAlumnoBPEL_wsdl" v="DarDeAltaAlumnoBPEL.wsdl"/>
+   <url n="DarDeBajaAlumnoBPEL_bpelFileURL" path="DarDeBajaAlumnoBPEL.bpel"/>
+   <value n="DarDeBajaAlumnoBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL"/>
+   <value n="DarDeBajaAlumnoBPEL_ProcessName" v="DarDeBajaAlumnoBPEL"/>
+   <value n="DarDeBajaAlumnoBPEL_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="DarDeBajaAlumnoBPEL_wsdl" v="DarDeBajaAlumnoBPEL.wsdl"/>
    <value n="defaultPackage" v="projectmentira"/>
+   <value n="InscribirAlumnoBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/InscribirAlumnoBPEL"/>
+   <value n="InscribirAlumnoBPEL_ProcessName" v="InscribirAlumnoBPEL"/>
+   <value n="InscribirAlumnoBPEL_Template" v="BPEL_ASYNC_PROCESS"/>
+   <value n="InscribirAlumnoBPEL_wsdl" v="InscribirAlumnoBPEL.wsdl"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -284,6 +314,7 @@
          <hash n="Default">
             <value n="custom" v="false"/>
             <value n="name" v="Default"/>
+            <url n="targetURL" path="ProjectMentira.jpr"/>
          </hash>
       </hash>
       <list n="runConfigurationList">
@@ -316,6 +347,10 @@
             <value n="id" v="BC4J Service Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="ADFm Designtime API"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <list n="libraryReferences">
          <hash>
@@ -342,6 +377,10 @@
             <value n="id" v="BC4J Service Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="ADFm Designtime API"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
@@ -349,9 +388,31 @@
    </hash>
    <hash n="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider">
       <hash n="sca-content">
+         <list n="constituent-sets">
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+NuevoAlumnoParaIncribirService.wsdl"/>
+               </list>
+               <list n="url-path">
+                  <url path="../Project1/"/>
+               </list>
+            </hash>
+         </list>
          <list n="url-path">
             <url path="."/>
          </list>
       </hash>
    </hash>
+   <hash n="oracle.toplink.workbench.addin">
+      <hash n="toplinkContentSet">
+         <list n="pattern-filters">
+            <string v="+**"/>
+         </list>
+         <list n="url-path">
+            <url path="toplink/"/>
+         </list>
+      </hash>
+   </hash>
+   <value n="ProcessName" v="DarDeBajaAlumnoBPEL"/>
+   <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>

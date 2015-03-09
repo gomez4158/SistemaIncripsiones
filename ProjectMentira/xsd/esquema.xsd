@@ -32,6 +32,14 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="darBaja">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="alumno" type="xsd:string"/>
+                <xsd:element name="materia" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
     <xsd:element name="materia">
         <xsd:complexType>
             <xsd:sequence>

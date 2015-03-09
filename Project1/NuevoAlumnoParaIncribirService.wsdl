@@ -14,8 +14,8 @@
     <wsdl:message name="requestMessage">
         <wsdl:part name="part1" element="inp1:darAlta"/>
     </wsdl:message>
-    <wsdl:portType name="executNuevoAlumnoParaIncribir">
-        <wsdl:operation name="NuevoAlumnoParaIncribir">
+    <wsdl:portType name="execute_ptt">
+        <wsdl:operation name="execute">
             <wsdl:input message="tns:requestMessage"/>
         </wsdl:operation>
     </wsdl:portType>

@@ -1,6 +1,6 @@
 <adapter-config name="NuevoAlumnoParaIncribir" adapter="Database Adapter" wsdlLocation="NuevoAlumnoParaIncribir.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
-  <connection-factory location="eis/mypool" UIConnectionName="system" adapterRef=""/>
+  <connection-factory location="eis/pileta" UIConnectionName="system" adapterRef=""/>
   <endpoint-interaction portType="NuevoAlumnoParaIncribir_ptt" operation="insert">
     <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
       <property name="DescriptorName" value="NuevoAlumnoParaIncribir.Inscriptos"/>

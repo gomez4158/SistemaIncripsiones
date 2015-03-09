@@ -1,0 +1,219 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Mon Mar 09 15:31:59 ART 2015
+  Author:  cgomezar
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="DarDeAltaAlumnoBPEL"
+               targetNamespace="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/CuposDeMateriaService"
+         xmlns:ns2="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/MateriasCursandoConEstadoService"
+         xmlns:ns3="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupoMateriaService"
+         xmlns:ns4="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/sistemaInscripsiones/NuevoAlumnoParaIncribirService"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns5="http://xmlns.oracle.com/singleString"
+         xmlns:ns6="http://www.proyectoInscripcion.org"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/top/aumentarCupo">
+
+    <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL" location="DarDeAltaAlumnoBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="dardealtaalumnobpel_client" partnerLinkType="client:DarDeAltaAlumnoBPEL" myRole="DarDeAltaAlumnoBPELProvider"/>
+    <partnerLink name="CuposService" partnerLinkType="ns1:CuposService"
+                 partnerRole="CuposDeMateria_ptt"/>
+    <partnerLink name="MateriasCursandoService"
+                 partnerLinkType="ns2:MateriasCursandoService"
+                 partnerRole="MateriasCursandoConEstado_ptt"/>
+    <partnerLink name="DisminuirCupoService"
+                 partnerLinkType="ns3:DisminuirCupoService"
+                 partnerRole="DisminuirCupoMateria_ptt"/>
+    <partnerLink name="NuevoAlumnoService"
+                 partnerLinkType="ns4:NuevoAlumnoService"
+                 partnerRole="execute_ptt"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:DarDeAltaAlumnoBPELRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:DarDeAltaAlumnoBPELResponseMessage"/>
+    <variable name="CuposInvoke_CuposDeMateria_InputVariable"
+              messageType="ns1:requestMessage"/>
+    <variable name="CuposInvoke_CuposDeMateria_OutputVariable"
+              messageType="ns1:replyMessage"/>
+    <variable name="MateriasCursadnoInvoke_MateriasCursandoConEstado_InputVariable"
+              messageType="ns2:requestMessage"/>
+    <variable name="MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable"
+              messageType="ns2:replyMessage"/>
+    <variable name="CursandoMateriaVariable" type="xsd:boolean"/>
+    <variable name="Invoke1_DisminuirCupoMateria_InputVariable"
+              messageType="ns3:requestMessage"/>
+    <variable name="NuevoAlumnoInvoke_NuevoAlumnoParaIncribir_InputVariable"
+              messageType="ns4:requestMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in DarDeAltaAlumnoBPEL.wsdl) -->
+    <receive name="receiveInput" partnerLink="dardealtaalumnobpel_client" portType="client:DarDeAltaAlumnoBPEL" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="CuposDisponiblesAssign">
+      <copy>
+        <from>$inputVariable.payload/ns6:materia</from>
+        <to>$CuposInvoke_CuposDeMateria_InputVariable.part1</to>
+      </copy>
+    </assign>
+    <invoke name="CuposInvoke"
+            partnerLink="CuposService" portType="ns1:CuposDeMateria_ptt"
+            operation="CuposDeMateria"
+            inputVariable="CuposInvoke_CuposDeMateria_InputVariable"
+            outputVariable="CuposInvoke_CuposDeMateria_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="IfCupos">
+      <documentation>Hay cupos</documentation>
+      <condition>$CuposInvoke_CuposDeMateria_OutputVariable.part1 &gt; 0</condition>
+      <scope name="Scope1">
+        <sequence name="Sequence1">
+          <assign name="MateriasCursandoAssign">
+            <copy>
+              <from>$inputVariable.payload/ns6:alumno</from>
+              <to>$MateriasCursadnoInvoke_MateriasCursandoConEstado_InputVariable.part1</to>
+            </copy>
+          </assign>
+          <invoke name="MateriasCursadnoInvoke"
+                  partnerLink="MateriasCursandoService"
+                  portType="ns2:MateriasCursandoConEstado_ptt"
+                  operation="MateriasCursandoConEstado"
+                  inputVariable="MateriasCursadnoInvoke_MateriasCursandoConEstado_InputVariable"
+                  outputVariable="MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable"
+                  bpelx:invokeAsDetail="no"/>
+          <forEach parallel="no" counterName="ForEach1Counter"
+                            name="MateriasForEach"
+                            xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+      <startCounterValue>1</startCounterValue>
+      <finalCounterValue>count($MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia/ns6:nombre)</finalCounterValue>
+      <scope name="Scope2">
+         <if name="IfEstaCursando">
+            <documentation>esta cursando</documentation>
+            <condition>$MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia[$ForEach1Counter]/ns6:nombre = $inputVariable.payload/ns6:materia and $MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia[$ForEach1Counter]/ns6:estado = "cursando"</condition>
+            <assign name="EstaCursandoAssign">
+               <copy>
+                  <from>true()</from>
+                  <to>$CursandoMateriaVariable</to>
+               </copy>
+            </assign>
+            <else>
+               <documentation>no esta cursanod</documentation>
+               <empty name="NoCursaEmpty"/>
+            </else>
+         </if>
+      </scope>
+   </forEach>
+        </sequence>
+      </scope>
+      <else>
+        <documentation>No hay cupos</documentation>
+        <assign name="NoHayCuposAssign">
+          <copy>
+            <from>"no hay cupos"</from>
+            <to>$outputVariable.payload</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <if name="IfNoCursaLaMAteria">
+      <documentation>agragar nuevo alumno</documentation>
+      <condition>not($CursandoMateriaVariable)</condition>
+      <sequence name="Sequence2">
+        <assign name="DisminuirCupoAssign">
+          <copy>
+            <from>$CuposInvoke_CuposDeMateria_OutputVariable.part1</from>
+            <to>$Invoke1_DisminuirCupoMateria_InputVariable.part1/ns7:Materias/ns7:cupo</to>
+          </copy>
+          <copy>
+            <from>$inputVariable.payload/ns6:materia</from>
+            <to>$Invoke1_DisminuirCupoMateria_InputVariable.part1/ns7:Materias/ns7:materia</to>
+          </copy>
+        </assign>
+        <invoke name="DisminuirCupoInvoke"
+                partnerLink="DisminuirCupoService"
+                portType="ns3:DisminuirCupoMateria_ptt"
+                operation="DisminuirCupoMateria"
+                inputVariable="Invoke1_DisminuirCupoMateria_InputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <assign name="NuevoAlumnoAssign">
+          <copy>
+            <from>$inputVariable.payload</from>
+            <to>$NuevoAlumnoInvoke_NuevoAlumnoParaIncribir_InputVariable.part1</to>
+          </copy>
+        </assign>
+        <invoke name="NuevoAlumnoInvoke"
+                partnerLink="NuevoAlumnoService" portType="ns4:execute_ptt"
+                operation="execute"
+                inputVariable="NuevoAlumnoInvoke_NuevoAlumnoParaIncribir_InputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <assign name="AgregadoCorrectamenteAssign">
+          <copy>
+            <from>"agregado correctamente"</from>
+            <to>$outputVariable.payload</to>
+          </copy>
+        </assign>
+      </sequence>
+      <else>
+        <documentation>esta curdando la materia</documentation>
+        <assign name="CursaLaMateriaAssign">
+          <copy>
+            <from>"cursa la materia"</from>
+            <to>$outputVariable.payload</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="dardealtaalumnobpel_client" portType="client:DarDeAltaAlumnoBPEL" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

@@ -1,5 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
+   <url n="asd_bpelFileURL" path="asd.bpel"/>
+   <value n="asd_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/asd"/>
+   <value n="asd_ProcessName" v="asd"/>
+   <value n="asd_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="asd_wsdl" v="asd.wsdl"/>
+   <value n="BPELProcess1_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/BPELProcess1"/>
+   <value n="BPELProcess1_ProcessName" v="BPELProcess1"/>
+   <value n="BPELProcess1_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="BPELProcess1_wsdl" v="BPELProcess1.wsdl"/>
    <hash n="component-versions">
       <value n="oracle.adfdt.controller.adfc.source.migration.AdfControllerSchemaMigrator" v="11.1.1.1.0"/>
       <value n="oracle.adfdt.controller.common.migrator.ProjectMigrator" v="11.1.1.1.0"/>
@@ -66,7 +75,7 @@
    <value n="DarDeAltaAlumnoBPEL_Template" v="BPEL_SYNC_PROCESS"/>
    <value n="DarDeAltaAlumnoBPEL_wsdl" v="DarDeAltaAlumnoBPEL.wsdl"/>
    <value n="defaultPackage" v="project1"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/DarDeAltaAlumnoBPEL"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/sistemaInscripsiones/asd"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -360,6 +369,16 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="DarDeAltaAlumnoBPEL"/>
+   <hash n="oracle.toplink.workbench.addin">
+      <hash n="toplinkContentSet">
+         <list n="pattern-filters">
+            <string v="+**"/>
+         </list>
+         <list n="url-path">
+            <url path="toplink/"/>
+         </list>
+      </hash>
+   </hash>
+   <value n="ProcessName" v="asd"/>
    <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>
