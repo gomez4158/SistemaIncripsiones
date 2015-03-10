@@ -1,0 +1,30 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/iniciar" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/iniciar" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="AlumnosCollection" type="AlumnosCollection"/>
+   <xs:complexType name="AlumnosCollection">
+      <xs:sequence>
+         <xs:element name="Alumnos" type="Alumnos" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Alumnos">
+      <xs:sequence>
+         <xs:element name="nroInscripcion" type="xs:decimal"/>
+         <xs:element name="nombre" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="30"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="apellido" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="30"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="edad" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="dni" type="xs:decimal" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

@@ -1,0 +1,16 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="EstaLaMateriaService"
+     targetNamespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateriaService"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateriaService"
+     xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    >
+    <plnk:partnerLinkType name="estaLaMateriaService">
+        <plnk:role name="EstaLaMateria_ptt" portType="tns:EstaLaMateria_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateriaService"
+         location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/DarDeBajaMAteria!1.0/EstaLaMateriaService.wsdl"/>
+</wsdl:definitions>

@@ -16,6 +16,7 @@
       <value n="oracle.mds.internal.dt.ide.migrator.MDSConfigMigratorHelper" v="11.1.1.0.5313"/>
    </hash>
    <list n="listOfChildren">
+      <hash><url n="URL" path="DarDeBajaMAteria/DarDeBajaMAteria.jpr"/></hash>
       <hash><url n="URL" path="pamplinas/pamplinas.jpr"/></hash>
       <hash><url n="URL" path="Project1/sistemaInscripsiones.jpr"/></hash>
       <hash><url n="URL" path="ProjectMentira/ProjectMentira.jpr"/></hash>

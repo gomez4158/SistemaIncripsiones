@@ -1,0 +1,25 @@
+<?binding.jca EstaLaMateria_db.jca?>
+<wsdl:definitions name="EstaLaMateria" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateria" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateria" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/EstaLaMateria">
+    <plt:partnerLinkType name="EstaLaMateria_plt">
+        <plt:role name="EstaLaMateria_role">
+            <plt:portType name="tns:EstaLaMateria_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/EstaLaMateria" schemaLocation="xsd/EstaLaMateria_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="EstaLaMateriaSelect_inputParameters">
+        <wsdl:part name="EstaLaMateriaSelect_inputParameters" element="top:EstaLaMateriaSelect_paramInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="MateriasCollection_msg">
+        <wsdl:part name="MateriasCollection" element="top:MateriasCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="EstaLaMateria_ptt">
+        <wsdl:operation name="EstaLaMateriaSelect">
+            <wsdl:input message="tns:EstaLaMateriaSelect_inputParameters"/>
+            <wsdl:output message="tns:MateriasCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

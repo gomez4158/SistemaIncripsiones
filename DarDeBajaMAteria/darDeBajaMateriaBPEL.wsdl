@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="darDeBajaMateriaBPEL"
+             targetNamespace="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/darDeBajaMateriaBPEL"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/darDeBajaMateriaBPEL"
+             xmlns:ns1="http://xmlns.oracle.com/singleString"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://xmlns.oracle.com/singleString" schemaLocation="xsd/singleString.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="darDeBajaMateriaBPELRequestMessage">
+		<wsdl:part name="payload" element="ns1:singleString" />
+	</wsdl:message>
+	<wsdl:message name="darDeBajaMateriaBPELResponseMessage">
+		<wsdl:part name="payload" element="ns1:singleString" />
+	</wsdl:message>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- portType implemented by the darDeBajaMateriaBPEL BPEL process -->
+	<wsdl:portType name="darDeBajaMateriaBPEL">
+		<wsdl:operation name="process">
+			<wsdl:input  message="client:darDeBajaMateriaBPELRequestMessage" />
+			<wsdl:output message="client:darDeBajaMateriaBPELResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
+	<plnk:partnerLinkType name="darDeBajaMateriaBPEL">
+		<plnk:role name="darDeBajaMateriaBPELProvider" portType="client:darDeBajaMateriaBPEL"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

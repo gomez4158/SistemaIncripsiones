@@ -1,0 +1,31 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="BuscarTodosLosAlumnosDeLMateriaService"
+     targetNamespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/BuscarTodosLosAlumnosDeLMateriaService"
+     xmlns:inp2="http://xmlns.oracle.com/pcbpel/adapter/db/top/BuscarTodosLosAlumnosDeLAMateria"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:inp1="http://xmlns.oracle.com/singleString"
+     xmlns:tns="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/BuscarTodosLosAlumnosDeLMateriaService"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/singleString" schemaLocation="xsd/singleString.xsd"/>
+        </xsd:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/BuscarTodosLosAlumnosDeLAMateria"
+                 schemaLocation="xsd/BuscarTodosLosAlumnosDeLAMateria_table.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="part1" element="inp1:singleString"/>
+    </wsdl:message>
+    <wsdl:message name="replyMessage">
+        <wsdl:part name="part1" element="inp2:InscriptosCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="BuscarTodosLosAlumnosDeLMateria_ptt">
+        <wsdl:operation name="BuscarTodosLosAlumnosDeLMateria">
+            <wsdl:input message="tns:requestMessage"/>
+            <wsdl:output message="tns:replyMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

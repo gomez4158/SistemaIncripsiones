@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MateriasCollection xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/EstaLaMateria">
+   <Materias>
+      <materia>string31</materia>
+      <cupo>33</cupo>
+   </Materias>
+   <Materias>
+      <materia>string34</materia>
+      <cupo>36</cupo>
+   </Materias>
+   <Materias>
+      <materia>string37</materia>
+      <cupo>39</cupo>
+   </Materias>
+</MateriasCollection>

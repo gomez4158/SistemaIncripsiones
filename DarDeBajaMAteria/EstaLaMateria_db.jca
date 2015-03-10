@@ -1,0 +1,14 @@
+<adapter-config name="EstaLaMateria" adapter="Database Adapter" wsdlLocation="EstaLaMateria.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/pileta" UIConnectionName="system" adapterRef=""/>
+  <endpoint-interaction portType="EstaLaMateria_ptt" operation="EstaLaMateriaSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="EstaLaMateria.Materias"/>
+      <property name="QueryName" value="EstaLaMateriaSelect"/>
+      <property name="MappingsMetaDataURL" value="EstaLaMateria-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

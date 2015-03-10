@@ -1,0 +1,14 @@
+<adapter-config name="PonerCupos0" adapter="Database Adapter" wsdlLocation="PonerCupos0.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/pileta" UIConnectionName="system" adapterRef=""/>
+  <endpoint-interaction portType="PonerCupos0_ptt" operation="update">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="PonerCupos0.Materias"/>
+      <property name="DmlType" value="update"/>
+      <property name="MappingsMetaDataURL" value="PonerCupos0-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

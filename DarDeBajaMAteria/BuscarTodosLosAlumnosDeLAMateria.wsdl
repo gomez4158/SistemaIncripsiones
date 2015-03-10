@@ -1,0 +1,25 @@
+<?binding.jca BuscarTodosLosAlumnosDeLAMateria_db.jca?>
+<wsdl:definitions name="BuscarTodosLosAlumnosDeLAMateria" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/DarDeBajaMAteria/BuscarTodosLosAlumnosDeLAMateria" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/DarDeBajaMAteria/BuscarTodosLosAlumnosDeLAMateria" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/BuscarTodosLosAlumnosDeLAMateria">
+    <plt:partnerLinkType name="BuscarTodosLosAlumnosDeLAMateria_plt">
+        <plt:role name="BuscarTodosLosAlumnosDeLAMateria_role">
+            <plt:portType name="tns:BuscarTodosLosAlumnosDeLAMateria_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/BuscarTodosLosAlumnosDeLAMateria" schemaLocation="xsd/BuscarTodosLosAlumnosDeLAMateria_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="BuscarTodosLosAlumnosDeLAMateriaSelect_inputParameters">
+        <wsdl:part name="BuscarTodosLosAlumnosDeLAMateriaSelect_inputParameters" element="top:BuscarTodosLosAlumnosDeLAMateriaSelect_paramInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="InscriptosCollection_msg">
+        <wsdl:part name="InscriptosCollection" element="top:InscriptosCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="BuscarTodosLosAlumnosDeLAMateria_ptt">
+        <wsdl:operation name="BuscarTodosLosAlumnosDeLAMateriaSelect">
+            <wsdl:input message="tns:BuscarTodosLosAlumnosDeLAMateriaSelect_inputParameters"/>
+            <wsdl:output message="tns:InscriptosCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,205 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Mar 10 10:45:36 ART 2015
+  Author:  cgomezar
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="darDeBajaMateriaBPEL"
+               targetNamespace="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/darDeBajaMateriaBPEL"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/darDeBajaMateriaBPEL"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/BuscarTodosLosAlumnosDeLMateriaService"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateria"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/darDebaja"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/sistemaInscripsiones/DisminuirCupo"
+         xmlns:ns5="http://xmlns.oracle.com/singleString"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/top/DisminuirCupo"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/SistemaDeInscripsiones/DarDeBajaMAteria/PonerCupos0"
+         xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/PonerCupos0"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/EstaLaMateria"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/BuscarTodosLosAlumnosDeLAMateria"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/top/darDebaja"
+         xmlns:ns12="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateriaService">
+
+    <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/darDeBajaMateriaBPEL" location="darDeBajaMateriaBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="dardebajamateriabpel_client" partnerLinkType="client:darDeBajaMateriaBPEL" myRole="darDeBajaMateriaBPELProvider"/>
+    <partnerLink name="PonerCupos0" partnerLinkType="ns7:PonerCupos0_plt"
+                 partnerRole="PonerCupos0_role"/>
+    <partnerLink name="BuscarTodosLosAlumnosDeLaMateriaService"
+                 partnerLinkType="ns1:BuscarTodosLosAlumnosDeLaMateriaService"
+                 partnerRole="BuscarTodosLosAlumnosDeLMateria_ptt"/>
+    <partnerLink name="ModificarAlumnoService"
+                 partnerLinkType="ns3:darDebaja_plt"
+                 partnerRole="darDebaja_role"/>
+    <partnerLink name="estaLaMateriaService"
+                 partnerLinkType="ns12:estaLaMateriaService"
+                 partnerRole="EstaLaMateria_ptt"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:darDeBajaMateriaBPELRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:darDeBajaMateriaBPELResponseMessage"/>
+    <variable name="Invoke1_update_InputVariable"
+              messageType="ns7:MateriasCollection_msg"/>
+    <variable name="BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_InputVariable"
+              messageType="ns1:requestMessage"/>
+    <variable name="BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_OutputVariable"
+              messageType="ns1:replyMessage"/>
+    <variable name="ModificarAlumnoInvoke_update_InputVariable"
+              messageType="ns3:InscriptosCollection_msg"/>
+    <variable name="EstaLaMateriaInvoke_EstaLaMateria_InputVariable"
+              messageType="ns12:requestMessage"/>
+    <variable name="EstaLaMateriaInvoke_EstaLaMateria_OutputVariable"
+              messageType="ns12:replyMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in darDeBajaMateriaBPEL.wsdl) -->
+    <receive name="receiveInput" partnerLink="dardebajamateriabpel_client" portType="client:darDeBajaMateriaBPEL" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="EstaLaMateriaAssign">
+      <copy>
+        <from>$inputVariable.payload</from>
+        <to>$EstaLaMateriaInvoke_EstaLaMateria_InputVariable.part1</to>
+      </copy>
+    </assign>
+    <invoke name="EstaLaMateriaInvoke"
+            partnerLink="estaLaMateriaService"
+            portType="ns12:EstaLaMateria_ptt" operation="EstaLaMateria"
+            inputVariable="EstaLaMateriaInvoke_EstaLaMateria_InputVariable"
+            outputVariable="EstaLaMateriaInvoke_EstaLaMateria_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="If1">
+      <documentation>está la materia</documentation>
+      <condition>$EstaLaMateriaInvoke_EstaLaMateria_OutputVariable.part1 &gt; 0</condition>
+      <sequence name="Sequence1">
+        <assign name="SuspendidaAssign">
+          <copy>
+            <from>"suspendida"</from>
+            <to>$outputVariable.payload</to>
+          </copy>
+        </assign>
+        <assign name="BuscarAlumnosDeMateriaAssign">
+          <copy>
+            <from>$inputVariable.payload</from>
+            <to>$BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_InputVariable.part1</to>
+          </copy>
+        </assign>
+        <invoke name="BuscarAlumnosDeMateriaInvoke"
+                partnerLink="BuscarTodosLosAlumnosDeLaMateriaService"
+                portType="ns1:BuscarTodosLosAlumnosDeLMateria_ptt"
+                operation="BuscarTodosLosAlumnosDeLMateria"
+                inputVariable="BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_InputVariable"
+                outputVariable="BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <forEach parallel="no" counterName="ForEach1Counter" name="ForEach1">
+          <startCounterValue>1</startCounterValue>
+          <finalCounterValue>count($BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_OutputVariable.part1/ns10:Inscriptos)</finalCounterValue>
+          <scope name="Scope1">
+            <if name="If2">
+              <documentation>está cursanod la materia</documentation>
+              <condition>$BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_OutputVariable.part1/ns10:Inscriptos[$ForEach1Counter]/ns10:estado = "cursando"</condition>
+              <sequence name="Sequence2">
+                <assign name="ModificarAlumnoAssign">
+                  <copy>
+                    <from>$BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_OutputVariable.part1/ns10:Inscriptos[$ForEach1Counter]/ns10:materia</from>
+                    <to>$ModificarAlumnoInvoke_update_InputVariable.InscriptosCollection/ns11:Inscriptos/ns11:materia</to>
+                  </copy>
+                  <copy>
+                    <from>$BusacarAlumnosDeMateriaInvoke_BuscarTodosLosAlumnosDeLMateria_OutputVariable.part1/ns10:Inscriptos[$ForEach1Counter]/ns10:alumno</from>
+                    <to>$ModificarAlumnoInvoke_update_InputVariable.InscriptosCollection/ns11:Inscriptos/ns11:alumno</to>
+                  </copy>
+                  <copy>
+                    <from>"suspendida"</from>
+                    <to>$ModificarAlumnoInvoke_update_InputVariable.InscriptosCollection/ns11:Inscriptos/ns11:estado</to>
+                  </copy>
+                </assign>
+                <invoke name="ModificarAlumnoInvoke"
+                        partnerLink="ModificarAlumnoService"
+                        portType="ns3:darDebaja_ptt" operation="update"
+                        inputVariable="ModificarAlumnoInvoke_update_InputVariable"
+                        bpelx:invokeAsDetail="no"/>
+              </sequence>
+              <else>
+                <documentation>no esta cursando la materia</documentation>
+                <empty name="Empty"/>
+              </else>
+            </if>
+          </scope>
+        </forEach>
+      </sequence>
+      <else>
+        <documentation>no está la materia para dar de baja</documentation>
+        <assign name="NoEsaLaMAteriaAssign">
+          <copy>
+            <from>"no esta la materia"</from>
+            <to>$outputVariable.payload</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <assign name="CuposAssign">
+      <copy>
+        <from>$inputVariable.payload</from>
+        <to>$Invoke1_update_InputVariable.MateriasCollection/ns8:Materias/ns8:materia</to>
+      </copy>
+      <copy>
+        <from>"0"</from>
+        <to>$Invoke1_update_InputVariable.MateriasCollection/ns8:Materias/ns8:cupo</to>
+      </copy>
+    </assign>
+    <invoke name="CuposInvoke" partnerLink="PonerCupos0"
+            portType="ns7:PonerCupos0_ptt" operation="update"
+            inputVariable="Invoke1_update_InputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="dardebajamateriabpel_client" portType="client:darDeBajaMateriaBPEL" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

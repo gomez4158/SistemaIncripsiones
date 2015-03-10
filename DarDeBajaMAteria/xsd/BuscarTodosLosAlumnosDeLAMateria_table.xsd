@@ -1,0 +1,40 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/BuscarTodosLosAlumnosDeLAMateria" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/BuscarTodosLosAlumnosDeLAMateria" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="InscriptosCollection" type="InscriptosCollection"/>
+   <xs:complexType name="InscriptosCollection">
+      <xs:sequence>
+         <xs:element name="Inscriptos" type="Inscriptos" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Inscriptos">
+      <xs:sequence>
+         <xs:element name="materia" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="alumno" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="estado" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="BuscarTodosLosAlumnosDeLAMateriaSelect_paramInputParameters" type="BuscarTodosLosAlumnosDeLAMateriaSelect_param"/>
+   <xs:complexType name="BuscarTodosLosAlumnosDeLAMateriaSelect_param">
+      <xs:sequence>
+         <xs:element name="param" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
