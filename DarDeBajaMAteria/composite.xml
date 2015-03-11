@@ -37,6 +37,22 @@
           importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/EstaLaMateriaService"
           location="EstaLaMateriaServiceWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/SistemaDeInscripsiones/DarDeBajaMAteria/colaDeOrdenes"
+          location="colaDeOrdenes.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/EncolarOrdenMediator"
+          location="EncolarOrdenMediator.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/ProjectMentira!1.0/DarDeAltaAlumnoBPEL.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL"
+          location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/ProjectMentira!1.0/DarDeBajaAlumnoBPEL.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/jms/SistemaDeInscripsiones/DarDeBajaMAteria/asdfghj"
+          location="asdfghj.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/file/SistemaDeInscripsiones/DarDeBajaMAteria/sd"
+          location="sd.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/Service1"
+          location="Service1.wsdl" importType="wsdl"/>
   <service name="BuscarTodosLosAlumnosDeLMateriaService"
            ui:wsdlLocation="BuscarTodosLosAlumnosDeLMateriaService.wsdl">
     <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/BuscarTodosLosAlumnosDeLMateriaService#wsdl.interface(BuscarTodosLosAlumnosDeLMateria_ptt)"/>
@@ -58,6 +74,22 @@
                 type="xs:string" many="false">NEVER</property>
     </binding.ws>
   </service>
+  <service name="EncolarOrdenMediator_ep"
+           ui:wsdlLocation="EncolarOrdenMediator.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/EncolarOrdenMediator#wsdl.interface(execute_ptt)"/>
+    <binding.ws port="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/EncolarOrdenMediator#wsdl.endpoint(EncolarOrdenMediator_ep/execute_pt)"/>
+  </service>
+  <service name="asdfghj" ui:wsdlLocation="asdfghj.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/SistemaDeInscripsiones/DarDeBajaMAteria/asdfghj#wsdl.interface(Consume_Message_ptt)"/>
+    <binding.jca config="asdfghj_jms.jca"/>
+  </service>
+  <service name="Service1" ui:wsdlLocation="Service1.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/Service1#wsdl.interface(execute_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/Service1#wsdl.endpoint(Service1/execute_pt)">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">NEVER</property>
+    </binding.ws>
+  </service>
   <component name="BuscarTodosLosAlumnosDeLaMateriaMediator">
     <implementation.mediator src="BuscarTodosLosAlumnosDeLaMateriaMediator.mplan"/>
   </component>
@@ -67,6 +99,18 @@
   </component>
   <component name="estaLaMateriaMediator">
     <implementation.mediator src="estaLaMateriaMediator.mplan"/>
+  </component>
+  <component name="EncolarOrdenMediator">
+    <implementation.mediator src="EncolarOrdenMediator.mplan"/>
+  </component>
+  <component name="CunsumirOperacionBPEL" version="2.0">
+    <implementation.bpel src="CunsumirOperacionBPEL.bpel"/>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
+              many="false">sync</property>
+  </component>
+  <component name="Mediator1">
+    <implementation.mediator src="Mediator1.mplan"/>
   </component>
   <reference name="BuscarTodosLosAlumnosDeLAMateria"
              ui:wsdlLocation="BuscarTodosLosAlumnosDeLAMateria.wsdl">
@@ -132,6 +176,34 @@
                 type="xs:string" many="false">WSDLDriven</property>
     </binding.ws>
   </reference>
+  <reference name="colaDeOrdenes" ui:wsdlLocation="colaDeOrdenes.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/jms/SistemaDeInscripsiones/DarDeBajaMAteria/colaDeOrdenes#wsdl.interface(Produce_Message_ptt)"/>
+    <binding.jca config="colaDeOrdenes_jms.jca"/>
+  </reference>
+  <reference name="DarDeAltaService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/ProjectMentira!1.0/DarDeAltaAlumnoBPEL.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL#wsdl.interface(DarDeAltaAlumnoBPEL)"/>
+    <binding.ws port="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL#wsdl.endpoint(dardealtaalumnobpel_client_ep/DarDeAltaAlumnoBPEL_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/ProjectMentira!1.0/dardealtaalumnobpel_client_ep?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="DarDeBajaService"
+             ui:wsdlLocation="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/ProjectMentira!1.0/DarDeBajaAlumnoBPEL.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL#wsdl.interface(DarDeBajaAlumnoBPEL)"/>
+    <binding.ws port="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL#wsdl.endpoint(dardebajaalumnobpel_client_ep/DarDeBajaAlumnoBPEL_pt)"
+                location="http://BUE-858029A-5.usersad.everis.int:7001/soa-infra/services/default/ProjectMentira!1.0/dardebajaalumnobpel_client_ep?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="sd" ui:wsdlLocation="sd.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/file/SistemaDeInscripsiones/DarDeBajaMAteria/sd#wsdl.interface(Write_ptt)"/>
+    <binding.jca config="sd_file.jca"/>
+  </reference>
   <wire>
     <source.uri>BuscarTodosLosAlumnosDeLMateriaService</source.uri>
     <target.uri>BuscarTodosLosAlumnosDeLaMateriaMediator/BuscarTodosLosAlumnosDeLaMateriaMediator</target.uri>
@@ -167,5 +239,33 @@
   <wire>
     <source.uri>darDeBajaMateriaBPEL/estaLaMateriaService</source.uri>
     <target.uri>estaLaMateriaService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>EncolarOrdenMediator_ep</source.uri>
+    <target.uri>EncolarOrdenMediator/EncolarOrdenMediator</target.uri>
+  </wire>
+  <wire>
+    <source.uri>EncolarOrdenMediator/colaDeOrdenes</source.uri>
+    <target.uri>colaDeOrdenes</target.uri>
+  </wire>
+  <wire>
+    <source.uri>CunsumirOperacionBPEL/DarDeAltaService</source.uri>
+    <target.uri>DarDeAltaService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>CunsumirOperacionBPEL/DarDeBajaService</source.uri>
+    <target.uri>DarDeBajaService</target.uri>
+  </wire>
+  <wire>
+    <source.uri>asdfghj</source.uri>
+    <target.uri>CunsumirOperacionBPEL/asdfghj</target.uri>
+  </wire>
+  <wire>
+    <source.uri>Service1</source.uri>
+    <target.uri>Mediator1/Mediator1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>Mediator1/sd</source.uri>
+    <target.uri>sd</target.uri>
   </wire>
 </composite>

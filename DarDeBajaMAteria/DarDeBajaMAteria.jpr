@@ -3,7 +3,7 @@
    <url n="BPELProcess1_bpelFileURL" path="BPELProcess1.bpel"/>
    <value n="BPELProcess1_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/BPELProcess1"/>
    <value n="BPELProcess1_ProcessName" v="BPELProcess1"/>
-   <value n="BPELProcess1_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="BPELProcess1_Template" v="BPEL_EMPTY_PROCESS"/>
    <value n="BPELProcess1_wsdl" v="BPELProcess1.wsdl"/>
    <hash n="component-versions">
       <value n="oracle.adfdt.controller.adfc.source.migration.AdfControllerSchemaMigrator" v="11.1.1.1.0"/>
@@ -53,6 +53,16 @@
       <value n="oracle.toplink.workbench.addin.migration.PersistenceProjectMigrator" v="11.1.1.1.1"/>
       <value n="oracle.toplink.workbench.addin.migration.TopLinkProjectMigrator" v="11.1.1.1.0"/>
    </hash>
+   <url n="ConsumirOperacionBPEL_bpelFileURL" path="ConsumirOperacionBPEL.bpel"/>
+   <value n="ConsumirOperacionBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/ConsumirOperacionBPEL"/>
+   <value n="ConsumirOperacionBPEL_ProcessName" v="ConsumirOperacionBPEL"/>
+   <value n="ConsumirOperacionBPEL_Template" v="BPEL_ONE_WAY_PROCESS"/>
+   <value n="ConsumirOperacionBPEL_wsdl" v="ConsumirOperacionBPEL.wsdl"/>
+   <url n="ConsumirUnaOperacionBPEL_bpelFileURL" path="ConsumirUnaOperacionBPEL.bpel"/>
+   <value n="ConsumirUnaOperacionBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/ConsumirUnaOperacionBPEL"/>
+   <value n="ConsumirUnaOperacionBPEL_ProcessName" v="ConsumirUnaOperacionBPEL"/>
+   <value n="ConsumirUnaOperacionBPEL_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="ConsumirUnaOperacionBPEL_wsdl" v="ConsumirUnaOperacionBPEL.wsdl"/>
    <list n="contentSets">
       <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
       <string v="oracle.ide.model.ResourcePaths/resourcesContentSet"/>
@@ -65,13 +75,18 @@
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
+   <url n="CunsumirOperacionBPEL_bpelFileURL" path="CunsumirOperacionBPEL.bpel"/>
+   <value n="CunsumirOperacionBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/CunsumirOperacionBPEL"/>
+   <value n="CunsumirOperacionBPEL_ProcessName" v="CunsumirOperacionBPEL"/>
+   <value n="CunsumirOperacionBPEL_Template" v="BPEL_EMPTY_PROCESS"/>
+   <value n="CunsumirOperacionBPEL_wsdl" v="CunsumirOperacionBPEL.wsdl"/>
    <url n="darDeBajaMateriaBPEL_bpelFileURL" path="darDeBajaMateriaBPEL.bpel"/>
    <value n="darDeBajaMateriaBPEL_Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/darDeBajaMateriaBPEL"/>
    <value n="darDeBajaMateriaBPEL_ProcessName" v="darDeBajaMateriaBPEL"/>
    <value n="darDeBajaMateriaBPEL_Template" v="BPEL_SYNC_PROCESS"/>
    <value n="darDeBajaMateriaBPEL_wsdl" v="darDeBajaMateriaBPEL.wsdl"/>
    <value n="defaultPackage" v="dardebajamateria"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/darDeBajaMateriaBPEL"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/CunsumirOperacionBPEL"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -375,6 +390,6 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="darDeBajaMateriaBPEL"/>
-   <value n="Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="ProcessName" v="CunsumirOperacionBPEL"/>
+   <value n="Template" v="BPEL_EMPTY_PROCESS"/>
 </jpr:project>

@@ -117,25 +117,33 @@
             inputVariable="MateriasCursandoInvoke_MateriasCursandoConEstado_InputVariable"
             outputVariable="MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable"
             bpelx:invokeAsDetail="no"/>
-    <forEach parallel="no" counterName="ForEach1Counter" name="ForEach1">
-      <startCounterValue>1</startCounterValue>
-      <finalCounterValue>count($MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns15:materia)</finalCounterValue>
-      <scope name="Scope1">
-        <if name="If1">
-          <documentation>la cursa</documentation>
-          <condition>$MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns15:materia[$ForEach1Counter]/ns15:nombre = $inputVariable.payload/ns15:materia and $MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns15:materia[$ForEach1Counter]/ns15:estado = "cursando"</condition>
-          <assign name="DarDeBajaAssign">
-            <copy>
-              <from>true()</from>
-              <to>$DarDeBajaVariable</to>
-            </copy>
-          </assign>
-          <else>
-            <empty name="NoDarDeBajaEmpty"/>
-          </else>
-        </if>
-      </scope>
-    </forEach>
+    <if name="IfTieneMateriasElAlumno">
+      <documentation>tiene materias el alumno</documentation>
+      <condition>count($MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns15:materia) &gt; 0</condition>
+      <forEach parallel="no" counterName="ForEach1Counter" name="ForEach1">
+        <startCounterValue>1</startCounterValue>
+        <finalCounterValue>count($MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns15:materia)</finalCounterValue>
+        <scope name="Scope1">
+          <if name="If1">
+            <documentation>la cursa</documentation>
+            <condition>$MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns15:materia[$ForEach1Counter]/ns15:nombre = $inputVariable.payload/ns15:materia and $MateriasCursandoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns15:materia[$ForEach1Counter]/ns15:estado = "cursando"</condition>
+            <assign name="DarDeBajaAssign">
+              <copy>
+                <from>true()</from>
+                <to>$DarDeBajaVariable</to>
+              </copy>
+            </assign>
+            <else>
+              <empty name="NoDarDeBajaEmpty"/>
+            </else>
+          </if>
+        </scope>
+      </forEach>
+      <else>
+        <documentation>no tiene materias el alumno</documentation>
+        <empty name="Empty"/>
+      </else>
+    </if>
     <if name="If2">
       <documentation>la tengo que dar de baja</documentation>
       <condition>$DarDeBajaVariable</condition>

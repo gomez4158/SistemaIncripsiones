@@ -1,0 +1,115 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Mar 10 15:45:44 ART 2015
+  Author:  cgomezar
+  Type: BPEL 2.0 Process
+  Purpose: Empty BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CunsumirOperacionBPEL"
+               targetNamespace="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/CunsumirOperacionBPEL"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/CunsumirOperacionBPEL"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/SistemaDeInscripsiones/DarDeBajaMAteria/ConsumirUnaOrden"
+         xmlns:ns2="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:ns3="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:ns4="http://www.proyectoInscripcion.org"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns5="http://xmlns.oracle.com/SistemaDeInscripsiones/DarDeBajaMAteria/Mediator2"
+         xmlns:ns6="http://oracle.com/sca/soapservice/SistemaDeInscripsiones/DarDeBajaMAteria/Service1"
+         xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/jms/SistemaDeInscripsiones/DarDeBajaMAteria/asdfghj">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <partnerLinks>
+    <partnerLink name="DarDeAltaService"
+                 partnerLinkType="ns2:DarDeAltaAlumnoBPEL"
+                 partnerRole="DarDeAltaAlumnoBPELProvider"/>
+    <partnerLink name="DarDeBajaService"
+                 partnerLinkType="ns3:DarDeBajaAlumnoBPEL"
+                 partnerRole="DarDeBajaAlumnoBPELProvider"/>
+    <partnerLink name="asdfghj" partnerLinkType="ns7:Consume_Message_plt"
+                 myRole="Consume_Message_role"/>
+  </partnerLinks>
+  <variables>
+    <variable name="AltaInvoke_process_InputVariable"
+              messageType="ns2:DarDeAltaAlumnoBPELRequestMessage"/>
+    <variable name="BajaInvoke_process_InputVariable"
+              messageType="ns3:DarDeBajaAlumnoBPELRequestMessage"/>
+    <variable name="AltaInvoke_process_OutputVariable"
+              messageType="ns2:DarDeAltaAlumnoBPELResponseMessage"/>
+    <variable name="BajaInvoke_process_OutputVariable"
+              messageType="ns3:DarDeBajaAlumnoBPELResponseMessage"/>
+    <variable name="Receive1_Consume_Message_InputVariable"
+              messageType="ns7:Consume_Message_msg"/>
+  </variables>
+  <sequence name="main">
+    <receive name="Receive1" createInstance="yes"
+             partnerLink="asdfghj" portType="ns7:Consume_Message_ptt"
+             operation="Consume_Message"
+             variable="Receive1_Consume_Message_InputVariable"/>
+    <if name="If1">
+      <documentation>es alta</documentation>
+      <condition>$Receive1_Consume_Message_InputVariable.body/ns4:orden = "alta"</condition>
+      <sequence name="Sequence1">
+        <assign name="RealizarAltaAssign">
+          <copy>
+            <from>$Receive1_Consume_Message_InputVariable.body/ns4:materia</from>
+            <to>$AltaInvoke_process_InputVariable.payload/ns4:materia</to>
+          </copy>
+          <copy>
+            <from>$Receive1_Consume_Message_InputVariable.body/ns4:alumno</from>
+            <to>$AltaInvoke_process_InputVariable.payload/ns4:alumno</to>
+          </copy>
+        </assign>
+        <invoke name="AltaInvoke"
+                partnerLink="DarDeAltaService"
+                portType="ns2:DarDeAltaAlumnoBPEL" operation="process"
+                inputVariable="AltaInvoke_process_InputVariable"
+                outputVariable="AltaInvoke_process_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <else>
+        <documentation>es baja</documentation>
+        <sequence name="Sequence2">
+          <assign name="AssignRealizarBaja">
+            <copy>
+              <from>$Receive1_Consume_Message_InputVariable.body/ns4:materia</from>
+              <to>$BajaInvoke_process_InputVariable.payload/ns4:materia</to>
+            </copy>
+            <copy>
+              <from>$Receive1_Consume_Message_InputVariable.body/ns4:alumno</from>
+              <to>$BajaInvoke_process_InputVariable.payload/ns4:alumno</to>
+            </copy>
+          </assign>
+          <invoke name="BajaInvoke"
+                  partnerLink="DarDeBajaService"
+                  portType="ns3:DarDeBajaAlumnoBPEL" operation="process"
+                  inputVariable="BajaInvoke_process_InputVariable"
+                  outputVariable="BajaInvoke_process_OutputVariable"
+                  bpelx:invokeAsDetail="no"/>
+        </sequence>
+      </else>
+    </if>
+  </sequence>
+</process>

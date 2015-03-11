@@ -90,7 +90,7 @@
    <value n="InscribirAlumnoBPEL_ProcessName" v="InscribirAlumnoBPEL"/>
    <value n="InscribirAlumnoBPEL_Template" v="BPEL_ASYNC_PROCESS"/>
    <value n="InscribirAlumnoBPEL_wsdl" v="InscribirAlumnoBPEL.wsdl"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeBajaAlumnoBPEL"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SistemaDeInscripsiones/ProjectMentira/DarDeAltaAlumnoBPEL"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -413,6 +413,6 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="DarDeBajaAlumnoBPEL"/>
+   <value n="ProcessName" v="DarDeAltaAlumnoBPEL"/>
    <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>

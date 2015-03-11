@@ -1,0 +1,12 @@
+<adapter-config name="asdfghj" adapter="JMS Adapter" wsdlLocation="asdfghj.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/piletaCola" UIJmsProvider="WLSJMS" UIConnectionName="server"/>
+  <endpoint-activation portType="Consume_Message_ptt" operation="Consume_Message">
+    <activation-spec className="oracle.tip.adapter.jms.inbound.JmsConsumeActivationSpec">
+      <property name="PayloadType" value="TextMessage"/>
+      <property name="UseMessageListener" value="false"/>
+      <property name="DestinationName" value="eis/colaDeOrdenes"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>

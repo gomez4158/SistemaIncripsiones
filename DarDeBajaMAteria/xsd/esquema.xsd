@@ -46,4 +46,14 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+    <xsd:element name="operacion">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="orden" type="xsd:string"/>
+                <xsd:element name="materia" type="xsd:string"/>
+                <xsd:element name="alumno" type="xsd:string"/>
+                    
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

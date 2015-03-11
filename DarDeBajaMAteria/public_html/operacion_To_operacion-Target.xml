@@ -1,0 +1,6 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<inp1:operacion xmlns:inp1="http://www.proyectoInscripcion.org">
+   <inp1:orden>orden40</inp1:orden>
+   <inp1:materia>materia41</inp1:materia>
+   <inp1:alumno>alumno42</inp1:alumno>
+</inp1:operacion>

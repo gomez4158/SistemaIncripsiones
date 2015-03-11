@@ -131,28 +131,41 @@
                   inputVariable="MateriasCursadnoInvoke_MateriasCursandoConEstado_InputVariable"
                   outputVariable="MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable"
                   bpelx:invokeAsDetail="no"/>
-          <forEach parallel="no" counterName="ForEach1Counter"
-                            name="MateriasForEach"
-                            xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
-      <startCounterValue>1</startCounterValue>
-      <finalCounterValue>count($MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia/ns6:nombre)</finalCounterValue>
-      <scope name="Scope2">
-         <if name="IfEstaCursando">
-            <documentation>esta cursando</documentation>
-            <condition>$MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia[$ForEach1Counter]/ns6:nombre = $inputVariable.payload/ns6:materia and $MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia[$ForEach1Counter]/ns6:estado = "cursando"</condition>
-            <assign name="EstaCursandoAssign">
-               <copy>
-                  <from>true()</from>
-                  <to>$CursandoMateriaVariable</to>
-               </copy>
-            </assign>
+          <if name="If1">
+            <documentation>tiene materias el alumno</documentation>
+            <condition>count($MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia) &gt; 0</condition>
+            <forEach parallel="no" counterName="ForEach1Counter"
+                     name="MateriasForEach"
+                     xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+              <startCounterValue>1</startCounterValue>
+              <finalCounterValue>count($MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia/ns6:nombre)</finalCounterValue>
+              <scope name="Scope2">
+                <if name="IfEstaCursando">
+                  <documentation>esta cursando</documentation>
+                  <condition>$MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia[$ForEach1Counter]/ns6:nombre = $inputVariable.payload/ns6:materia and $MateriasCursadnoInvoke_MateriasCursandoConEstado_OutputVariable.part1/ns6:materia[$ForEach1Counter]/ns6:estado = "cursando"</condition>
+                  <assign name="EstaCursandoAssign">
+                    <copy>
+                      <from>true()</from>
+                      <to>$CursandoMateriaVariable</to>
+                    </copy>
+                  </assign>
+                  <else>
+                    <documentation>no esta cursanod</documentation>
+                    <empty name="NoCursaEmpty"/>
+                  </else>
+                </if>
+              </scope>
+            </forEach>
             <else>
-               <documentation>no esta cursanod</documentation>
-               <empty name="NoCursaEmpty"/>
+              <documentation>no tiene materias el alumno</documentation>
+              <assign name="IngrasarAlumnoAssign">
+                <copy>
+                  <from>false()</from>
+                  <to>$CursandoMateriaVariable</to>
+                </copy>
+              </assign>
             </else>
-         </if>
-      </scope>
-   </forEach>
+          </if>
         </sequence>
       </scope>
       <else>
